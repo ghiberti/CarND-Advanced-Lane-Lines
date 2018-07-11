@@ -19,11 +19,11 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/undistort_output.png "Undistorted"
+[image1]: ./examples/undistort.png "Undistorted"
 [image2]: ./examples/undistort_test_image.png "Road Transformed"
 [image3]: ./examples/grad_color_threshold3.png "Binary Example"
 [image4]: ./examples/persp_transform2.png "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
+[image5]: ./examples/line_fit.png "Fit Visual"
 [image6]: ./examples/plot_output.png "Output"
 [video1]: ./output_video/project_output.mp4 "Video"
 
@@ -108,4 +108,11 @@ Here's a [link to my video result](./output_video/project_output.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+First difficulty I faced was finding a good threshold combination to eliminate noise caused due to changing lighting conditions while keeping a robust outline of the lane lines. In the project video arriers seemed to cause great confusion under certain lighting conditions. In the end I was able to fix that problem by masking the warped binary image edges before line detection. However in the challange video the algorithm is still thrown off by the impurities that occur in the middle of the lane. So far, even though I tried to remedy the problem through sanity checks, I was not able to fix this problem. I suspect that using another color space for thresholding could be the solution.
+
+Secondly, the pipeline still runs into problem of identified lane bleeding on the top left edge over the actual line border at certain points through the "project_video". Although it seems to recover well from the error, I have been unable to identify why the lines are accepted in the first place. I tried through sanity checks to make sure that the line slopes have the same orientation and they are approximately parallel. Furthermore I evaluate the identified line indices by comparing them to best fit average over 5 previous fits at extreme points of the line in order to make sure that there are no dramatic discrepancies. These have led to improvements in the performance. Nonetheless, they have not completely solved the bleeding on the top left edge issue.
+
+Finally, the current pipeline has overfit the problem of "project_video" as evidenced by its performance in the "harder_challenge_video". It can be improved further by replacing hard coded parts such as in warping function to make it more adaptable to different road types and lane sizes. In addition, if time constraints allowed, I would have expanded the sanity checks and properties of the line object in order improve the robustness and flexibility of the pipeline.
+
+
+
