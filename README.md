@@ -19,7 +19,7 @@ Contents:
 * Project Notebook.ipnyb - Jupyter notebook that contains steps taken towards completion of the project including the pipeline
 * /output_video - video of lane finding results for "project_video" and "harder_challenge_video"
 * /examples - contains images used in writeup
-* writeup_template.md - contains project pipeline summary and reflections on the project outcome
+* writeup.md - contains project pipeline summary and reflections on the project outcome
 * var.pkl - pickle file containing camera calibration calculations
 * /camera_cal - contains images used for camera calibration
 * /test_images - images provided for pipeline testing for project
